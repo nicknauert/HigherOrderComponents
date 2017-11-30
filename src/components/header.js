@@ -6,7 +6,10 @@ import * as actions from "../actions"
 class Header extends Component {
 
     authButton(){
-        return <button>Sign In</button>;
+        if( this.props.authenticated ){
+            return <button onClick={ ()=> this.props.authenticate(false) } >Sign Out</button>;
+        }
+        return <button onClick={ ()=> this.props.authenticate(true) } >Sign In</button>;
     }
 
     render(){
@@ -32,4 +35,4 @@ function mapStateToProps(state){
     return { authenticated: state.authenticated }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, actions)(Header);
